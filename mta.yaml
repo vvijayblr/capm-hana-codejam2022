@@ -30,6 +30,9 @@ modules:
     path: db #gen/db
     parameters:
       buildpack: nodejs_buildpack
+    #We added default-env.json and .env files to the project so that we could deploy and test from the SAP Business Application Studio. However we don’t want these files to be present in a “real” deployment, instead getting configuration from the bound service instances. Therefore we can tell the builder to exclude these files from this module. That way we can keep these files in our project for future testing and development but ensure that they don’t accidentally make it into a production deployment.  
+    build-parameters:
+      ignore: ["default-env.json", ".env"]  
     requires:
       - name: MyHANAApp-db
 
